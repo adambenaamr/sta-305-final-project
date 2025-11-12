@@ -10,8 +10,6 @@ coffee <- read_csv("final/coffee_sales.csv")
 coffee$Weekday <- factor(coffee$Weekday, levels = c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"), ordered = TRUE)
 coffee$Month_name <- factor(coffee$Month_name, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), ordered = TRUE)
 
-# Adds a new column into the dataset called 'Season' and is determined based on the solstice dates
-
 # View the dataset
 View(coffee)
 
@@ -26,7 +24,7 @@ ggplot(data = coffee, aes(x = Weekday, fill = Time_of_Day)) +
 ggplot(data = coffee, aes(x = Month_name, fill = Time_of_Day)) +
   geom_bar(position = "dodge", color = "black") +
   scale_fill_manual(values = c("Afternoon" = "#D6B588", "Morning" = "#705E46", "Night" = "#422701")) +
-  labs(title = "Bar Distribution of Coffee Sales by Month and Time of Day")
+  labs(title = "Bar Distribution of Coffee Sales by Month and Time of Day", x = "Month", y = "Count", fill = "Time of Day")
 
 # Sales by month and season
 ggplot(data = coffee, aes(x = Month_name, fill = )) +
