@@ -4,7 +4,7 @@ library(readr)
 library(ggplot2)
 
 # Loads the dataset into the variable named coffee
-coffee <- read_csv("final/coffee_sales.csv")
+coffee <- read_csv("coffee_sales.csv")
 
 # Reorder the appearances of Weekdays
 coffee$Weekday <- factor(coffee$Weekday, levels = c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"), ordered = TRUE)
@@ -38,5 +38,16 @@ ggplot(data = coffee, aes(x = Weekday, y = Time_of_Day)) +
   theme_minimal()
 
 # Scatter plot
-ggplot(data = coffee, aes(x = Weekday, y = Time_of_Day)) +
-  geom_dotplot()
+ggplot(data = coffee, aes(x = hour_of_day, y = money, color = coffee_name)) +
+  geom_point(alpha = 0.7, size = 2) +
+  scale_color_manual(values = c("#F3E5AB", "#D6B588", "#B9975B", "#8B6B3F", "#705E46", "#59442A", "#422701", "#2C1A0E")) +
+  labs(title = "Coffee Sales by Hour of Day", subtitle = "Colored by Coffee Type", x = "Hour of Day", y = "Sale Amount ($)", color = "Coffee Type") +
+  theme_minimal()
+
+ggplot(data = coffee, aes(x = Weekdaysort, y = money, color = cash_type)) +
+  geom_jitter(alpha = 0.7, width = 0.2, size = 2) +
+  stat_summary(fun = mean, geom = "line", aes(group = cash_type), linewidth = 1.1) +
+  scale_x_continuous(breaks = 1:7, labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")) +
+  scale_color_manual(values = c("#D6B588")) +
+  labs(title = "Weekly Sales Trends by Payment Type", subtitle = "Average spending pattern across weedays", x = "Day of the Week", y = "Sale Amount ($)", color = "Payment Type") +
+  theme_minimal()
